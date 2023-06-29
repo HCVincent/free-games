@@ -18,7 +18,6 @@ export default function AdminHome() {
           // Redirect if not in "admins" group
           if (
             router.pathname === "/admin/home" ||
-            router.pathname === "/admin/home/add"
           ) {
             router.push("/");
           }
