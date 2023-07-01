@@ -6,14 +6,12 @@ import "@aws-amplify/ui-react/styles.css";
 import awsmobile from "../aws-exports";
 import { Auth } from "aws-amplify";
 import Layout from "@/components/Layout/Layout";
-import authUtils from "@/utils/authUtils";
+import useAuthUtils from "@/hooks/useAuthUtils";
 import useTokens from "@/hooks/useTokens";
 Amplify.configure({ ...awsmobile, ssr: true });
 
 export default function Home() {
   const { setJwtToken } = useTokens();
-  const { checkUserGroup, getUser } = authUtils();
-  const user = getUser();
   const [token, setToken] = useState("");
   const [usergroup, setUsergroup] = useState("");
   useEffect(() => {

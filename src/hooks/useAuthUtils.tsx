@@ -1,7 +1,8 @@
 import { Auth } from "aws-amplify";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const authUtils = () => {
+const useAuthUtils = () => {
+  const [user, setUser] = useState<any>();
   const checkUserGroup = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser();
@@ -18,7 +19,7 @@ const authUtils = () => {
   const getUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser();
-      console.log("getUseruser", user);
+      setUser(user);
       return user;
     } catch (error) {
       console.log("getUser error", error);
@@ -28,10 +29,16 @@ const authUtils = () => {
   async function signOut() {
     try {
       await Auth.signOut();
+      setUser(null);
+      console.log("user", user);
     } catch (error) {
       console.log("error signing out: ", error);
     }
   }
-  return { checkUserGroup, getUser, signOut };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+  return { checkUserGroup, user, signOut, setUser };
 };
-export default authUtils;
+export default useAuthUtils;

@@ -1,32 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Authenticator } from "@aws-amplify/ui-react";
-import authUtils from "@/utils/authUtils";
+import useAuthUtils from "@/hooks/useAuthUtils";
+import { useRouter } from "next/router";
 
 const AdminHome: React.FC = () => {
-  const { getUser } = authUtils();
-  const [user, setUser] = useState<any>(null);
+  const router = useRouter();
+  const { user, signOut } = useAuthUtils();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = await getUser();
-        setUser(userData);
-      } catch (error) {
-        // Handle error
-      }
-    };
-
-    fetchUser();
-  }, []);
-  const signOut = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSignOut = () => {
+    console.log("signout");
+    signOut();
+    router.push("/");
   };
 
   return (
     <div>
       <div>
         {user?.username}
-        <button>Sign out</button>
+        <button onClick={onSignOut}>Sign out</button>
       </div>
     </div>
   );

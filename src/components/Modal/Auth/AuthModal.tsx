@@ -1,14 +1,14 @@
 import { Auth } from "aws-amplify";
 import router from "next/router";
 import React, { useEffect, useState } from "react";
-import authUtils from "@/utils/authUtils";
+import useAuthUtils from "@/hooks/useAuthUtils";
 
 type AuthModalProps = {
   setIsAdmin: (value: boolean) => void;
 };
 
 const AuthModal: React.FC<AuthModalProps> = ({ setIsAdmin }) => {
-  const { checkUserGroup } = authUtils();
+  const { checkUserGroup } = useAuthUtils();
   const [loading, setLoading] = useState(false);
   const [loginForm, setLoginForm] = useState({
     email: "",
