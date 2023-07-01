@@ -3,12 +3,12 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import { Auth } from "aws-amplify";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import checkUserGroup from "@/utils/checkUserGroup";
+import authUtils from "@/utils/authUtils";
 
 export default function AdminHome() {
+  const { checkUserGroup } = authUtils();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const checkUsersGroup = async () => {
       try {
@@ -16,9 +16,7 @@ export default function AdminHome() {
         console.log("group", group);
         if (group !== "admins") {
           // Redirect if not in "admins" group
-          if (
-            router.pathname === "/admin/home" ||
-          ) {
+          if (router.pathname === "/admin/home") {
             router.push("/");
           }
         } else {

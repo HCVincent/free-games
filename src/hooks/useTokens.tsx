@@ -1,18 +1,8 @@
-// import { Auth } from "aws-amplify";
+import { useState } from "react";
 
-// const useTokens = () => {
-//   const checkUserGroup = async () => {
-//     try {
-//       const user = await Auth.currentAuthenticatedUser();
-//       const group: string =
-//         user.signInUserSession.accessToken.payload["cognito:groups"][0];
-//       return group;
-//     } catch (error) {
-//       return null;
-//     }
-//   };
+const useTokens = () => {
+  const [jwtToken, setJwtToken] = useState("");
+  return { jwtToken, setJwtToken };
+};
 
-//   return { checkUserGroup };
-// };
-
-// export default useTokens;
+export default useTokens;
